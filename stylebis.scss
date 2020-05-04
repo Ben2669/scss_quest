@@ -1,0 +1,55 @@
+.ring-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  height: 75vh;
+}
+
+.first-ring {
+  @extend .ring-container;
+  flex-direction: row;
+  background-color: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  height: 20%;
+}
+
+.second-ring {
+  @extend .first-ring;
+  height: 50%;
+}
+
+.third-ring {
+  @extend .first-ring;
+  flex-direction: column;
+}
+
+@mixin drawRing($size, $color) {
+  height: $size;
+  width: $size;
+  border-radius: 50%;
+  background-color: transparent;
+  border: ($size / 15) solid $color;
+  box-shadow: ($size / 10) ($size / 10) ($size / 20) darken($color, 20%);
+}
+
+.first-precious {
+  @include drawRing(50px, orange);
+}
+
+.my-precious {
+  @include drawRing(100px, yellow);
+}
+
+.many-precious {
+  display: flex;
+  align-items: center;
+  @for $i from 1 through 6 {
+    div:nth-child(#{$i}) {
+      @include drawRing((30px + $i * 5px), gray);
+      margin-right: -15px;
+    }
+  }
+}
